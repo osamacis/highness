@@ -8,7 +8,7 @@ from pages.models import Banner, Testimonial, USP, TeamMember, FAQ
 from blog.models import BlogCategory, BlogPost, Recipe
 
 class Command(BaseCommand):
-    help = 'Seeds the database with Slurrp Farm sample data and generates mockup images'
+    help = 'Seeds the database with Highness sample data and generates mockup images'
 
     def handle(self, *args, **kwargs):
         self.stdout.write("Starting database seeding...")
@@ -358,7 +358,7 @@ class Command(BaseCommand):
             category=bcat_recipes,
             featured_image=make_mock_image("blog/blog2.png", "Toddler Breakfast Ideas", c_yellow, size=(800, 400)),
             excerpt="Busy mornings? Ditch the sugary cereal loops and try these easy millet-based breakfast recipes that take less than 10 minutes to cook.",
-            content="<p>Mornings can be chaotic, especially when you have toddlers running around. It is tempting to pour a bowl of sugary, highly processed cereals, but this leads to mid-morning sugar crashes. Here are 5 quick, wholesome ideas to fuel your child's day:</p><h4>1. Millet Chocolate Pancakes</h4><p>Use Slurrp Farm Chocolate Pancake Mix. Whisk with milk, pour on a hot griddle, and cook for 2 minutes on each side. Serve with honey or banana slices.</p><h4>2. Fruit & Yogurt Cereal Bowl</h4><p>Mix cook ragi porridge with thick curd, honey, and top with fresh mango or banana slices.</p>",
+            content="<p>Mornings can be chaotic, especially when you have toddlers running around. It is tempting to pour a bowl of sugary, highly processed cereals, but this leads to mid-morning sugar crashes. Here are 5 quick, wholesome ideas to fuel your child's day:</p><h4>1. Millet Chocolate Pancakes</h4><p>Use Highness Chocolate Pancake Mix. Whisk with milk, pour on a hot griddle, and cook for 2 minutes on each side. Serve with honey or banana slices.</p><h4>2. Fruit & Yogurt Cereal Bowl</h4><p>Mix cook ragi porridge with thick curd, honey, and top with fresh mango or banana slices.</p>",
             author="Meghana Narayan",
             is_featured=True,
             published_at=timezone.now() - timezone.timedelta(days=2)
@@ -376,7 +376,7 @@ class Command(BaseCommand):
             servings=3,
             age_group=age_12m,
             difficulty="easy",
-            ingredients_list="1 cup Slurrp Farm Chocolate Pancake Mix\n1/2 cup Milk or Water\n1 tbsp Butter (for cooking)\n1 Banana (sliced)\n1 tbsp Honey or Maple Syrup (optional)",
+            ingredients_list="1 cup Highness Chocolate Pancake Mix\n1/2 cup Milk or Water\n1 tbsp Butter (for cooking)\n1 Banana (sliced)\n1 tbsp Honey or Maple Syrup (optional)",
             instructions="<div class='instruction-step'><span class='instruction-step-num'>1</span><p class='text-muted fs-5'>Whisk 1 cup of Chocolate Pancake Mix with 1/2 cup of milk or water in a medium bowl until a smooth batter forms. Let it rest for 2 minutes.</p></div><div class='instruction-step'><span class='instruction-step-num'>2</span><p class='text-muted fs-5'>Heat a non-stick pan over medium-low heat and grease lightly with butter. Pour a ladle of batter onto the pan.</p></div><div class='instruction-step'><span class='instruction-step-num'>3</span><p class='text-muted fs-5'>Cook until bubbles form on the surface (about 2 minutes), then flip and cook the other side for another 1-2 minutes until golden brown.</p></div><div class='instruction-step'><span class='instruction-step-num'>4</span><p class='text-muted fs-5'>Stack the warm pancakes on a plate, layering with banana slices in between. Drizzle honey on top and serve warm!</p></div>",
             is_featured=True,
             published_at=timezone.now()
@@ -392,7 +392,7 @@ class Command(BaseCommand):
             servings=1,
             age_group=age_6m,
             difficulty="easy",
-            ingredients_list="3 tbsp Slurrp Farm Sprouted Ragi Powder\n1 cup Water or Milk\n1/2 ripe Banana (mashed)",
+            ingredients_list="3 tbsp Highness Sprouted Ragi Powder\n1 cup Water or Milk\n1/2 ripe Banana (mashed)",
             instructions="<div class='instruction-step'><span class='instruction-step-num'>1</span><p class='text-muted fs-5'>In a small saucepan, whisk 3 tablespoons of Sprouted Ragi Powder into 1 cup of cold water or milk until no lumps remain.</p></div><div class='instruction-step'><span class='instruction-step-num'>2</span><p class='text-muted fs-5'>Place the saucepan over medium heat and cook, stirring continuously to prevent sticking, for 4-5 minutes until the mixture thickens.</p></div><div class='instruction-step'><span class='instruction-step-num'>3</span><p class='text-muted fs-5'>Remove from heat and stir in the mashed ripe banana for natural sweetness. Let it cool to lukewarm before feeding.</p></div>",
             is_featured=True,
             published_at=timezone.now() - timezone.timedelta(days=1)

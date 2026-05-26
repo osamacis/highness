@@ -1,4 +1,4 @@
-<div id="sfHeroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+<div id="sfHeroCarousel" class="carousel slide hero-carousel animated-carousel" data-bs-ride="carousel">
     <!-- Carousel Indicators -->
     <div class="carousel-indicators" style="bottom: 20px;">
         {% for banner in banners %}
@@ -11,33 +11,85 @@
     <!-- Carousel Slides -->
     <div class="carousel-inner">
         {% for banner in banners %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}" style="background-image: url('{{ banner.image_desktop.url }}'); background-size: cover; background-position: center;">
-                <div class="hero-overlay">
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" style="background: linear-gradient(135deg, #FFE5B4 0%, #FFD4A3 50%, #FFC89B 100%); background-size: cover; background-position: center; position: relative; overflow: hidden;">
+                <!-- Animated Background Elements -->
+                <div class="animated-bg-element element-1"></div>
+                <div class="animated-bg-element element-2"></div>
+                <div class="animated-bg-element element-3"></div>
+                <div class="animated-bg-element element-4"></div>
+                
+                <!-- Floating Shapes -->
+                <div class="floating-shape shape-circle" style="top: 10%; left: 5%;"></div>
+                <div class="floating-shape shape-star" style="top: 20%; right: 10%;"></div>
+                <div class="floating-shape shape-heart" style="bottom: 15%; left: 15%;"></div>
+                <div class="floating-shape shape-circle" style="bottom: 20%; right: 5%;"></div>
+                
+                <div class="hero-overlay" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.3) 0%, rgba(99, 102, 241, 0.1) 100%);">
                     <div class="container">
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-lg-7 hero-text-container">
-                                <h1 class="hero-title" style="color: var(--sf-white); text-shadow: 3px 3px 0 rgba(0,0,0,0.3);">{{ banner.title }}</h1>
+                                <h1 class="hero-title animated-title" style="color: #0F172A; text-shadow: 2px 2px 0 rgba(255,255,255,0.5);">{{ banner.title }}</h1>
                                 {% if banner.subtitle %}
-                                    <p class="hero-subtitle" style="font-size: 1.3rem; margin-bottom: 2rem;">{{ banner.subtitle }}</p>
+                                    <p class="hero-subtitle animated-subtitle" style="font-size: 1.3rem; margin-bottom: 2rem; color: #0F172A;">{{ banner.subtitle }}</p>
                                 {% endif %}
                                 {% if banner.cta_text and banner.cta_link %}
-                                    <a href="{{ banner.cta_link }}" class="btn btn-sf-primary" style="font-size: 1rem; padding: 0.75rem 2rem;">{{ banner.cta_text }}</a>
+                                    <a href="{{ banner.cta_link }}" class="btn btn-sf-primary btn-bounce" style="font-size: 1rem; padding: 0.75rem 2rem;">{{ banner.cta_text }}</a>
                                 {% endif %}
+                            </div>
+                            <div class="col-lg-5 text-center">
+                                <div class="animated-character">
+                                    <div class="character-head"></div>
+                                    <div class="character-body"></div>
+                                    <div class="character-arms">
+                                        <div class="arm arm-left"></div>
+                                        <div class="arm arm-right"></div>
+                                    </div>
+                                    <div class="character-legs">
+                                        <div class="leg leg-left"></div>
+                                        <div class="leg leg-right"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <!-- Fallback Slide -->
-            <div class="carousel-item active" style="background-image: url('https://placehold.co/1920x600/C12126/FFF9E6?text=Welcome+To+Highness'); background-size: cover; background-position: center;">
-                <div class="hero-overlay">
+            <!-- Fallback Slide with Animated Elements -->
+            <div class="carousel-item active" style="background: linear-gradient(135deg, #FFE5B4 0%, #FFD4A3 50%, #FFC89B 100%); position: relative; overflow: hidden;">
+                <!-- Animated Background Elements -->
+                <div class="animated-bg-element element-1"></div>
+                <div class="animated-bg-element element-2"></div>
+                <div class="animated-bg-element element-3"></div>
+                <div class="animated-bg-element element-4"></div>
+                
+                <!-- Floating Shapes -->
+                <div class="floating-shape shape-circle" style="top: 10%; left: 5%;"></div>
+                <div class="floating-shape shape-star" style="top: 20%; right: 10%;"></div>
+                <div class="floating-shape shape-heart" style="bottom: 15%; left: 15%;"></div>
+                <div class="floating-shape shape-circle" style="bottom: 20%; right: 5%;"></div>
+                
+                <div class="hero-overlay" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.3) 0%, rgba(99, 102, 241, 0.1) 100%);">
                     <div class="container">
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-lg-7 hero-text-container">
-                                <h1 class="hero-title" style="color: var(--sf-white); text-shadow: 3px 3px 0 rgba(0,0,0,0.3);">Healthy Food For Kids!</h1>
-                                <p class="hero-subtitle" style="font-size: 1.3rem; margin-bottom: 2rem;">Made by 2 Mothers. 100% Honest, Healthy Millet Food for Kids. No Refined Sugar, No Junk.</p>
-                                <a href="{% url 'products:product_list' %}" class="btn btn-sf-primary" style="font-size: 1rem; padding: 0.75rem 2rem;">Shop Millets Now</a>
+                                <h1 class="hero-title animated-title" style="color: #0F172A; text-shadow: 2px 2px 0 rgba(255,255,255,0.5);">Healthy Food For Kids!</h1>
+                                <p class="hero-subtitle animated-subtitle" style="font-size: 1.3rem; margin-bottom: 2rem; color: #0F172A;">Made by 2 Mothers. 100% Honest, Healthy Millet Food for Kids. No Refined Sugar, No Junk.</p>
+                                <a href="{% url 'products:product_list' %}" class="btn btn-sf-primary btn-bounce" style="font-size: 1rem; padding: 0.75rem 2rem;">Shop Millets Now</a>
+                            </div>
+                            <div class="col-lg-5 text-center">
+                                <div class="animated-character">
+                                    <div class="character-head"></div>
+                                    <div class="character-body"></div>
+                                    <div class="character-arms">
+                                        <div class="arm arm-left"></div>
+                                        <div class="arm arm-right"></div>
+                                    </div>
+                                    <div class="character-legs">
+                                        <div class="leg leg-left"></div>
+                                        <div class="leg leg-right"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

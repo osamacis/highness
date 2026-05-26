@@ -31,7 +31,7 @@ class Testimonial(models.Model):
     def __str__(self):
         return f"Review by {self.customer_name}"
 
-class USP(models.Model):   # "Why Slurrp Farm" selling points
+class USP(models.Model):   # "Why Highness" selling points
     title = models.CharField(max_length=100)        # "No Maida"
     description = models.TextField(max_length=200)
     icon = models.ImageField(upload_to='usps/', blank=True)

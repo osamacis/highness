@@ -18,7 +18,7 @@ class BlogPost(models.Model):
     featured_image = models.ImageField(upload_to='blog/')
     excerpt = models.TextField(max_length=300)
     content = models.TextField()                    # HTML/text content
-    author = models.CharField(max_length=100, default='Slurrp Farm')
+    author = models.CharField(max_length=100, default='Highness')
     is_featured = models.BooleanField(default=False)
     published_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
