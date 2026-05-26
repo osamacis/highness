@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg sf-navbar sticky-top">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'pages:home' %}">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1.2rem;">H</div>
+                <span style="font-family: var(--font-heading); background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 0.5px; font-weight: 800; font-size: 1.4rem;">Highness</span>
+            </div>
+        </a>
+
+        <!-- Mobile Toggler -->
+        <button class="navbar-toggler border-0 shadow-none" type="button"
+                data-bs-toggle="collapse" data-bs-target="#sfNavbarContent"
+                aria-controls="sfNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links & Search -->
+        <div class="collapse navbar-collapse" id="sfNavbarContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                       href="{% url 'pages:home' %}">Home</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                    <ul class="dropdown-menu mega-dropdown-menu">
+                        <li><a class="dropdown-item fw-bold" href="{% url 'products:product_list' %}">All Products</a></li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        {% for cat in NAV_CATEGORIES %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'products:product_list_by_category' cat.slug %}">
+                                    {{ cat.name }}
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li><a class="dropdown-item disabled" href="#">No categories</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">By Age</a>
+                    <ul class="dropdown-menu mega-dropdown-menu">
+                        {% for age in NAV_AGE_GROUPS %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'products:product_list_by_age' age.slug %}">
+                                    {{ age.name }}
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li><a class="dropdown-item disabled" href="#">No age groups</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                       href="{% url 'pages:about' %}">About</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Resources</a>
+                    <ul class="dropdown-menu mega-dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'blog:blog_list' %}">
+                                <i class="bi bi-journal-text me-2"></i>Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'blog:recipe_list' %}">
+                                <i class="bi bi-book me-2"></i>Recipes
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+                       href="{% url 'pages:contact' %}">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Search Form -->
+            <form class="d-flex mt-3 mt-lg-0" action="{% url 'products:product_list' %}" method="GET" style="gap: 0;">
+                <input type="text" name="q" class="form-control rounded-start-pill"
+                       placeholder="Search..." aria-label="Search"
+                       value="{{ search_query|default:'' }}"
+                       style="width: 200px; font-size: 0.9rem; padding: 0.65rem 1.2rem; border: 2px solid #E2E8F0; border-right: none;">
+                <button class="btn rounded-end-pill" type="submit" aria-label="Search"
+                        style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); border: 2px solid #E2E8F0; border-left: none; padding: 0.65rem 1rem; color: white; font-weight: 600;">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>

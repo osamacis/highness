@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load core_tags %}
+
+{% block title %}Home | Highness{% endblock %}
+
+{% block content %}
+
+<!-- Hero Carousel -->
+{% include 'includes/hero_carousel.html' %}
+
+<!-- Category Strip -->
+{% include 'includes/category_strip.html' %}
+
+<!-- Shop By Age Section -->
+<section class="py-5" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge rounded-pill mb-3" style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); color: white; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">Find by Age</span>
+            <h2 class="display-4 mb-0 text-dark" style="font-family: var(--font-heading); font-weight: 800;">Shop By Age</h2>
+        </div>
+        
+        <div class="row g-4 justify-content-center">
+            {% for age in age_groups %}
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <a href="{% url 'products:product_list_by_age' age.slug %}" class="age-card">
+                        {% if age.icon %}
+                            <img src="{{ age.icon.url }}" alt="{{ age.name }}" class="img-fluid">
+                        {% else %}
+                            <img src="https://placehold.co/200x200/6366F1/FFFFFF?text={{ age.name|urlencode }}" alt="{{ age.name }}" class="img-fluid">
+                        {% endif %}
+                        <h4 class="mb-1" style="font-family: var(--font-heading);">{{ age.name }}</h4>
+                        {% if age.description %}
+                            <p class="small text-muted mb-0">{{ age.description }}</p>
+                        {% endif %}
+                    </a>
+                </div>
+            {% empty %}
+                <p class="text-muted">No age groups configured.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="d-flex align-items-end justify-content-between mb-5 flex-wrap gap-3">
+            <div>
+                <span class="badge rounded-pill mb-2" style="background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%); color: #0F172A; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">Curated For You</span>
+                <h2 class="display-4 mb-0 text-dark" style="font-family: var(--font-heading); font-weight: 800;">Our Favorites</h2>
+            </div>
+            <a href="{% url 'products:product_list' %}" class="btn btn-sf-secondary">View All Products</a>
+        </div>
+        
+        <div class="row g-4">
+            {% for product in featured_products %}
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    {% include 'includes/product_card.html' with product=product %}
+                </div>
+            {% empty %}
+                <p class="text-muted text-center col-12 py-4">No featured products available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Brand Story Section -->
+<section class="py-5" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge rounded-pill mb-3" style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); color: white; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">Our Story</span>
+                <h2 class="display-3 text-dark mb-4" style="font-family: var(--font-heading); font-weight: 800; line-height: 1.1;">Real Food, Made By Real Mothers!</h2>
+                <p class="lead text-muted mb-4" style="font-size: 1.1rem; line-height: 1.7;">We are a brand born out of concern. Two mothers, who like all other parents, wanted to feed their kids healthy food, but could only find choices loaded with preservatives and white flour (maida) in the market. So they made their own!</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'pages:about' %}" class="btn btn-sf-primary">Read Our Story</a>
+                    <a href="{% url 'products:product_list' %}" class="btn btn-sf-secondary">Browse Shop</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ratio ratio-16x9 rounded-4 overflow-hidden border border-light-gray shadow-lg" style="border: 2px solid #E2E8F0;">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Highness Campaign" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bestsellers Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="d-flex align-items-end justify-content-between mb-5 flex-wrap gap-3">
+            <div>
+                <span class="badge rounded-pill mb-2" style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); color: white; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">Top Choice</span>
+                <h2 class="display-4 mb-0 text-dark" style="font-family: var(--font-heading); font-weight: 800;">Bestselling Millets</h2>
+            </div>
+            <a href="{% url 'products:product_list' %}?sort=bestselling" class="btn btn-sf-primary">View Bestsellers</a>
+        </div>
+        
+        <div class="row g-4">
+            {% for product in bestselling_products %}
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    {% include 'includes/product_card.html' with product=product %}
+                </div>
+            {% empty %}
+                <p class="text-muted text-center col-12 py-4">No bestselling products available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Why Highness (USPs) -->
+<section class="py-5" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+    <div class="container text-center">
+        <span class="badge rounded-pill mb-3" style="background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%); color: #0F172A; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">Only The Good Stuff</span>
+        <h2 class="display-4 mb-5 text-dark" style="font-family: var(--font-heading); font-weight: 800;">Why Parents Love Highness?</h2>
+        
+        <div class="row g-4 justify-content-center">
+            {% for usp in usps %}
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="usp-item">
+                        <div class="usp-icon-wrapper">
+                            {% if usp.icon %}
+                                <img src="{{ usp.icon.url }}" alt="{{ usp.title }}">
+                            {% else %}
+                                <img src="https://placehold.co/80x80/6366F1/FFFFFF?text=✓" alt="{{ usp.title }}">
+                            {% endif %}
+                        </div>
+                        <h4 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;">{{ usp.title }}</h4>
+                        <p class="text-muted small mb-0">{{ usp.description }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-md-3">
+                    <div class="usp-item">
+                        <div class="usp-icon-wrapper"><img src="https://placehold.co/80x80/6366F1/FFFFFF?text=0%25" alt="No Sugar"></div>
+                        <h4 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;">No Refined Sugar</h4>
+                        <p class="text-muted small">Sweetened naturally with jaggery or coconut sugar.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="usp-item">
+                        <div class="usp-icon-wrapper"><img src="https://placehold.co/80x80/6366F1/FFFFFF?text=Millets" alt="Millet Power"></div>
+                        <h4 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;">Millet Power</h4>
+                        <p class="text-muted small">Made with Ragi, Bajra, Jowar & Foxtail Millets.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="usp-item">
+                        <div class="usp-icon-wrapper"><img src="https://placehold.co/80x80/6366F1/FFFFFF?text=100%25" alt="Natural"></div>
+                        <h4 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;">100% Natural</h4>
+                        <p class="text-muted small">No artificial colors, preservatives, or GMOs.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+{% if testimonials %}
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge rounded-pill mb-3" style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); color: white; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">Parent Love</span>
+            <h2 class="display-4 text-dark" style="font-family: var(--font-heading); font-weight: 800;">Shared By Happy Families</h2>
+        </div>
+        
+        <div class="row g-4">
+            {% for testimonial in testimonials %}
+                <div class="col-lg-4 col-md-6">
+                    {% include 'includes/testimonial_card.html' with testimonial=testimonial %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Recent Blog Posts Section -->
+<section class="py-5" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+    <div class="container">
+        <div class="d-flex align-items-end justify-content-between mb-5 flex-wrap gap-3">
+            <div>
+                <span class="badge rounded-pill mb-2" style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); color: white; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">Learn & Play</span>
+                <h2 class="display-4 mb-0 text-dark" style="font-family: var(--font-heading); font-weight: 800;">Read Our Latest Stories</h2>
+            </div>
+            <a href="{% url 'blog:blog_list' %}" class="btn btn-sf-secondary">Go To Blog</a>
+        </div>
+        
+        <div class="row g-4">
+            {% for post in recent_posts %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog-card">
+                        <div class="blog-card-img" style="background-image: url('{{ post.featured_image.url }}');"></div>
+                        <div class="blog-card-body">
+                            <span class="badge rounded-pill mb-3" style="background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%); color: #0F172A; font-size: 0.8rem; font-weight: 600; padding: 0.4rem 0.8rem;">
+                                {{ post.category.name }}
+                            </span>
+                            <h4 class="blog-card-title">
+                                <a href="{% url 'blog:blog_detail' post.slug %}" class="text-decoration-none">
+                                    {{ post.title }}
+                                </a>
+                            </h4>
+                            <p class="text-muted small mb-4">{{ post.excerpt }}</p>
+                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top" style="border-color: #E2E8F0;">
+                                <small class="text-muted"><i class="bi bi-person-fill" style="color: #6366F1; margin-right: 0.5rem;"></i>{{ post.author }}</small>
+                                <small class="text-muted">{{ post.published_at|date:"d M Y" }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted text-center col-12 py-4">No recent blog posts available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

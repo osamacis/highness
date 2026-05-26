@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Highness{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="page-banner text-center">
+    <div class="container">
+        <div class="mb-4">
+            <span class="badge rounded-pill" style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); color: white; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">GET IN TOUCH</span>
+        </div>
+        <h1 class="page-banner-title" style="font-family: var(--font-heading);">We'd Love to Hear From You</h1>
+        <p class="lead text-muted max-width-600 mx-auto mt-3">
+            Questions, suggestions, or just want to say hello? Drop us a line!
+        </p>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Form -->
+            <div class="col-lg-7">
+                <div class="card border-0 rounded-3 p-4 p-md-5 shadow-sm" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+                    <h3 class="mb-4 text-dark" style="font-family: var(--font-heading); font-size: 2rem; font-weight: 800;">Send us a Message</h3>
+                    
+                    <form method="POST" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.name.id_for_label }}" class="form-label fw-500">Name</label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="{{ form.email.id_for_label }}" class="form-label fw-500">Email</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="{{ form.phone.id_for_label }}" class="form-label fw-500">Phone</label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}
+                                    <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="{{ form.subject.id_for_label }}" class="form-label fw-500">Subject</label>
+                                {{ form.subject }}
+                                {% if form.subject.errors %}
+                                    <div class="text-danger small mt-1">{{ form.subject.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12">
+                                <label for="{{ form.message.id_for_label }}" class="form-label fw-500">Message</label>
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    <div class="text-danger small mt-1">{{ form.message.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-sf-secondary w-100 py-3">
+                                    Send Message <i class="bi bi-send-fill ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="col-lg-5">
+                <div class="d-flex flex-column gap-4 h-100 justify-content-center">
+                    <div>
+                        <span class="badge rounded-pill mb-3" style="background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%); color: #0F172A; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">DIRECT CONTACT</span>
+                        <h3 class="text-dark mb-4" style="font-family: var(--font-heading); font-size: 2rem; font-weight: 800;">Other Ways to Reach Us</h3>
+                        <p class="text-muted">Feel free to contact us directly. We're available Monday to Saturday, 9 AM to 6 PM.</p>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="d-flex align-items-start gap-3 p-4 rounded-3" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%); border: 1px solid #E2E8F0;">
+                        <div class="p-3 rounded-circle text-primary flex-shrink-0" style="background: rgba(99, 102, 241, 0.1);">
+                            <i class="bi bi-geo-alt-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Our Office</h5>
+                            <p class="text-muted mb-0 small">{{ CONTACT_ADDRESS }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="d-flex align-items-start gap-3 p-4 rounded-3" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%); border: 1px solid #E2E8F0;">
+                        <div class="p-3 rounded-circle text-primary flex-shrink-0" style="background: rgba(99, 102, 241, 0.1);">
+                            <i class="bi bi-telephone-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Call Us</h5>
+                            <p class="text-muted mb-0 small">{{ CONTACT_PHONE }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="d-flex align-items-start gap-3 p-4 rounded-3" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%); border: 1px solid #E2E8F0;">
+                        <div class="p-3 rounded-circle text-primary flex-shrink-0" style="background: rgba(99, 102, 241, 0.1);">
+                            <i class="bi bi-envelope-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Email Us</h5>
+                            <p class="text-muted mb-0 small"><a href="mailto:{{ CONTACT_EMAIL }}" class="text-decoration-none text-dark fw-500">{{ CONTACT_EMAIL }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQs -->
+{% if faqs %}
+<section class="py-5" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+    <div class="container" style="max-width: 900px;">
+        <div class="text-center mb-5">
+            <span class="badge rounded-pill mb-3" style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); color: white; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">FIND ANSWERS</span>
+            <h2 class="display-4 text-dark" style="font-family: var(--font-heading); font-weight: 800;">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="accordion border-0" id="faqAccordion">
+            {% for faq in faqs %}
+                <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden" style="background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                    <h2 class="accordion-header" id="heading-{{ faq.id }}">
+                        <button class="accordion-button {% if not forloop.first %}collapsed{% endif %} py-3 fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ faq.id }}" aria-expanded="{% if forloop.first %}true{% endif %}" aria-controls="collapse-{{ faq.id }}" style="font-family: var(--font-body);">
+                            Q: {{ faq.question }}
+                        </button>
+                    </h2>
+                    <div id="collapse-{{ faq.id }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading-{{ faq.id }}" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body bg-white text-muted py-4">
+                            {{ faq.answer|linebreaks }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

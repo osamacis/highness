@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}{{ post.title }} | Highness Blog{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumbs -->
+<nav class="bg-light py-3 border-bottom border-dark border-opacity-10">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'pages:home' %}" class="text-decoration-none text-muted">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'blog:blog_list' %}" class="text-decoration-none text-muted">Blog</a></li>
+            {% if post.category %}
+                <li class="breadcrumb-item"><a href="{% url 'blog:blog_list_by_category' post.category.slug %}" class="text-decoration-none text-muted">{{ post.category.name }}</a></li>
+            {% endif %}
+            <li class="breadcrumb-item active text-dark" aria-current="page">{{ post.title|truncatechars:40 }}</li>
+        </ol>
+    </div>
+</nav>
+
+<!-- Main Details Layout -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            
+            <!-- Article Column -->
+            <div class="col-lg-9 col-xl-8">
+                
+                <!-- Article Header -->
+                <div class="text-center mb-5">
+                    {% if post.category %}
+                        <span class="badge bg-warning text-dark text-capitalize px-3 py-2 rounded-pill mb-3" style="font-size: 0.9rem; font-weight: 700;">
+                            {{ post.category.name }}
+                        </span>
+                    {% endif %}
+                    <h1 class="display-3 text-dark mb-4" style="font-family: var(--font-heading); line-height: 1.1;">{{ post.title }}</h1>
+                    
+                    <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
+                        <span><i class="bi bi-person-fill text-danger me-1"></i> By {{ post.author }}</span>
+                        <span>•</span>
+                        <span><i class="bi bi-calendar-event text-danger me-1"></i> {{ post.published_at|date:"d M Y" }}</span>
+                    </div>
+                </div>
+
+                <!-- Featured Image -->
+                <div class="mb-5 text-center">
+                    {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" class="img-fluid rounded-5 border border-dark border-3 shadow-sm" alt="{{ post.title }}" style="max-height: 500px; width: 100%; object-fit: cover;">
+                    {% else %}
+                        <img src="https://placehold.co/1200x600/C12126/FFF?text={{ post.title|urlencode }}" class="img-fluid rounded-5 border border-dark border-3 shadow-sm" alt="{{ post.title }}">
+                    {% endif %}
+                </div>
+
+                <!-- Content (Supports HTML, Safe render) -->
+                <article class="lh-lg fs-5 text-muted mb-5">
+                    {{ post.content|safe }}
+                </article>
+
+                <hr class="border-dark border-opacity-10 my-5">
+
+                <!-- Related Posts -->
+                {% if related_posts %}
+                    <div class="mt-5">
+                        <h3 class="display-6 text-dark mb-4 text-center text-md-start" style="font-family: var(--font-heading);">Read Next</h3>
+                        <div class="row g-4">
+                            {% for r_post in related_posts %}
+                                <div class="col-md-6 col-12">
+                                    <div class="blog-card">
+                                        <div class="blog-card-img" style="background-image: url('{{ r_post.featured_image.url }}'); height: 160px;"></div>
+                                        <div class="blog-card-body">
+                                            <h5 class="fw-bold mb-2">
+                                                <a href="{% url 'blog:blog_detail' r_post.slug %}" class="text-decoration-none text-dark hover-red">
+                                                    {{ r_post.title }}
+                                                </a>
+                                            </h5>
+                                            <p class="text-muted small mb-0">{{ r_post.excerpt|truncatechars:80 }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

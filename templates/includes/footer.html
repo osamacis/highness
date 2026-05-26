@@ -1,0 +1,75 @@
+<footer class="sf-footer" style="background-color: var(--sf-dark); color: white; padding: 4rem 0 2rem;">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Brand Column -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="mb-4" style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--sf-yellow); font-weight: 900;">Highness</h5>
+                <p class="text-white-50 mb-4 small" style="line-height: 1.7;">
+                    Made by 2 Mothers. Healthy millet-based food for kids with no refined sugar or preservatives.
+                </p>
+                <div class="d-flex gap-3" style="font-size: 1.2rem;">
+                    <a href="#" class="text-white-50 text-decoration-none" style="transition: color 0.2s;"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-white-50 text-decoration-none" style="transition: color 0.2s;"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white-50 text-decoration-none" style="transition: color 0.2s;"><i class="bi bi-youtube"></i></a>
+                    <a href="#" class="text-white-50 text-decoration-none" style="transition: color 0.2s;"><i class="bi bi-twitter"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6">
+                <h6 class="mb-4 fw-bold" style="color: var(--sf-yellow); font-size: 0.9rem; letter-spacing: 1px;">SHOP</h6>
+                <ul class="list-unstyled d-flex flex-column gap-3 small">
+                    <li><a href="{% url 'products:product_list' %}" class="text-white-50 text-decoration-none">All Products</a></li>
+                    <li><a href="{% url 'products:product_list' %}" class="text-white-50 text-decoration-none">Bestsellers</a></li>
+                    <li><a href="{% url 'blog:recipe_list' %}" class="text-white-50 text-decoration-none">Recipes</a></li>
+                </ul>
+            </div>
+
+            <!-- About & Learn -->
+            <div class="col-lg-2 col-md-6">
+                <h6 class="mb-4 fw-bold" style="color: var(--sf-yellow); font-size: 0.9rem; letter-spacing: 1px;">COMPANY</h6>
+                <ul class="list-unstyled d-flex flex-column gap-3 small">
+                    <li><a href="{% url 'pages:home' %}" class="text-white-50 text-decoration-none">Home</a></li>
+                    <li><a href="{% url 'pages:about' %}" class="text-white-50 text-decoration-none">About Us</a></li>
+                    <li><a href="{% url 'blog:blog_list' %}" class="text-white-50 text-decoration-none">Blog</a></li>
+                    <li><a href="{% url 'pages:contact' %}" class="text-white-50 text-decoration-none">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="col-lg-2 col-md-6">
+                <h6 class="mb-4 fw-bold" style="color: var(--sf-yellow); font-size: 0.9rem; letter-spacing: 1px;">HELP</h6>
+                <ul class="list-unstyled d-flex flex-column gap-3 small">
+                    <li><a href="#" class="text-white-50 text-decoration-none">Shipping Info</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Returns</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">FAQs</a></li>
+                    <li><a href="mailto:support@highness.com" class="text-white-50 text-decoration-none">Email Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Mini -->
+            <div class="col-lg-3 col-md-6">
+                <h6 class="mb-4 fw-bold" style="color: var(--sf-yellow); font-size: 0.9rem; letter-spacing: 1px;">STAY UPDATED</h6>
+                <p class="text-white-50 small mb-3">Subscribe for parenting tips</p>
+                <form class="d-flex gap-2">
+                    <input type="email" class="form-control form-control-sm rounded-pill" placeholder="Your email" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; font-size: 0.85rem;">
+                    <button type="submit" class="btn btn-sm rounded-pill" style="background-color: var(--sf-yellow); color: var(--sf-dark); font-weight: 600; padding: 0.4rem 1rem; flex-shrink: 0;">Go</button>
+                </form>
+            </div>
+        </div>
+
+        <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+
+        <!-- Copyright -->
+        <div class="row align-items-center text-center text-md-start">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <p class="text-white-50 small mb-0">
+                    &copy; {% now "Y" %} Highness. All rights reserved.
+                </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <span class="text-white-50 small">No Refined Sugar • No Preservatives • Made with Love</span>
+            </div>
+        </div>
+    </div>
+</footer>

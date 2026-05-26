@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop By Category | Highness{% endblock %}
+
+{% block content %}
+
+<!-- Header Banner -->
+<section class="page-banner text-center">
+    <div class="container">
+        <span class="badge bg-danger text-uppercase px-3 py-2 rounded-pill mb-3" style="font-family: var(--font-body); font-weight: 700;">Explore Categories</span>
+        <h1 class="page-banner-title" style="font-family: var(--font-heading);">Shop By Category</h1>
+        <p class="lead text-muted max-width-600 mx-auto mt-3">
+            Choose from our wholesome, nutritious ranges of millet cereals, cookies, mixes and more.
+        </p>
+    </div>
+</section>
+
+<!-- Categories Grid -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            {% for cat in categories %}
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card h-100 border-3 border-dark rounded-4 overflow-hidden shadow-sm d-flex flex-column">
+                        <div class="p-4 bg-light text-center border-bottom border-dark border-2 position-relative" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                            {% if cat.image %}
+                                <img src="{{ cat.image.url }}" class="img-fluid" style="max-height: 100%; object-fit: contain;" alt="{{ cat.name }}">
+                            {% else %}
+                                <img src="https://placehold.co/300x150/F8BE15/2C0409?text={{ cat.name|urlencode }}" class="img-fluid" style="max-height: 100%; object-fit: contain;" alt="{{ cat.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="card-body p-4 bg-white d-flex flex-column align-items-center text-center flex-grow-1">
+                            <h3 class="card-title text-dark mb-2" style="font-family: var(--font-heading); font-size: 1.8rem;">{{ cat.name }}</h3>
+                            {% if cat.description %}
+                                <p class="card-text text-muted small mb-4">{{ cat.description }}</p>
+                            {% endif %}
+                            <a href="{% url 'products:product_list_by_category' cat.slug %}" class="btn btn-sf-secondary mt-auto w-100">
+                                View Range
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted text-center py-4">No categories configured.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

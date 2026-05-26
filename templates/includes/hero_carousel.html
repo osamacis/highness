@@ -1,0 +1,58 @@
+<div id="sfHeroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+    <!-- Carousel Indicators -->
+    <div class="carousel-indicators" style="bottom: 20px;">
+        {% for banner in banners %}
+            <button type="button" data-bs-target="#sfHeroCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %} rounded-pill" style="width: 12px; height: 12px; border: 2px solid white;" aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+        {% empty %}
+            <button type="button" data-bs-target="#sfHeroCarousel" data-bs-slide-to="0" class="active rounded-pill" style="width: 12px; height: 12px; border: 2px solid white;" aria-current="true" aria-label="Slide 1"></button>
+        {% endfor %}
+    </div>
+
+    <!-- Carousel Slides -->
+    <div class="carousel-inner">
+        {% for banner in banners %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" style="background-image: url('{{ banner.image_desktop.url }}'); background-size: cover; background-position: center;">
+                <div class="hero-overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 hero-text-container">
+                                <h1 class="hero-title" style="color: var(--sf-white); text-shadow: 3px 3px 0 rgba(0,0,0,0.3);">{{ banner.title }}</h1>
+                                {% if banner.subtitle %}
+                                    <p class="hero-subtitle" style="font-size: 1.3rem; margin-bottom: 2rem;">{{ banner.subtitle }}</p>
+                                {% endif %}
+                                {% if banner.cta_text and banner.cta_link %}
+                                    <a href="{{ banner.cta_link }}" class="btn btn-sf-primary" style="font-size: 1rem; padding: 0.75rem 2rem;">{{ banner.cta_text }}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <!-- Fallback Slide -->
+            <div class="carousel-item active" style="background-image: url('https://placehold.co/1920x600/C12126/FFF9E6?text=Welcome+To+Highness'); background-size: cover; background-position: center;">
+                <div class="hero-overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 hero-text-container">
+                                <h1 class="hero-title" style="color: var(--sf-white); text-shadow: 3px 3px 0 rgba(0,0,0,0.3);">Healthy Food For Kids!</h1>
+                                <p class="hero-subtitle" style="font-size: 1.3rem; margin-bottom: 2rem;">Made by 2 Mothers. 100% Honest, Healthy Millet Food for Kids. No Refined Sugar, No Junk.</p>
+                                <a href="{% url 'products:product_list' %}" class="btn btn-sf-primary" style="font-size: 1rem; padding: 0.75rem 2rem;">Shop Millets Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#sfHeroCarousel" data-bs-slide="prev" style="left: 30px; width: 50px; opacity: 0.7;">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.3));"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#sfHeroCarousel" data-bs-slide="next" style="right: 30px; width: 50px; opacity: 0.7;">
+        <span class="carousel-control-next-icon" aria-hidden="true" style="filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.3));"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

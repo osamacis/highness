@@ -1,0 +1,78 @@
+{% load core_tags %}
+
+<div class="product-card">
+    <!-- Image -->
+    <div class="product-card-img-wrapper">
+        {% if product.is_bestseller %}
+            <span class="product-badge">🏆 Bestseller</span>
+        {% endif %}
+        {% if product.discount_percentage > 0 %}
+            <span class="product-discount-badge">{{ product.discount_percentage }}% OFF</span>
+        {% endif %}
+        <a href="{% url 'products:product_detail' product.slug %}"
+           class="w-100 h-100 d-flex align-items-center justify-content-center text-decoration-none">
+            {% with product.images.first as primary_image %}
+                {% if primary_image %}
+                    <img src="{{ primary_image.image.url }}"
+                         alt="{{ primary_image.alt_text|default:product.name }}" loading="lazy">
+                {% else %}
+                    <img src="https://placehold.co/300x300/F8BE15/2C0409?text={{ product.name|urlencode }}"
+                         alt="{{ product.name }}">
+                {% endif %}
+            {% endwith %}
+        </a>
+    </div>
+
+    <!-- Body -->
+    <div class="product-card-body">
+        <span class="product-card-weight text-muted small">{{ product.weight }}</span>
+
+        <h4 class="product-card-title">
+            <a href="{% url 'products:product_detail' product.slug %}"
+               class="text-decoration-none text-dark">{{ product.name }}</a>
+        </h4>
+
+        <!-- Stars -->
+        <div class="d-flex align-items-center gap-1 mb-2">
+            {% for star in product.rating|star_range %}
+                {% if star == 'full' %}
+                    <i class="bi bi-star-fill text-warning" style="font-size:0.85rem;"></i>
+                {% elif star == 'half' %}
+                    <i class="bi bi-star-half text-warning" style="font-size:0.85rem;"></i>
+                {% else %}
+                    <i class="bi bi-star text-warning" style="font-size:0.85rem;"></i>
+                {% endif %}
+            {% endfor %}
+            <small class="text-muted ms-1" style="font-size: 0.8rem;">({{ product.review_count }})</small>
+        </div>
+
+        <!-- Description snippet -->
+        <p class="text-muted small mb-2" style="font-size: 0.85rem; line-height: 1.4;">
+            {% if product.short_description %}
+                {{ product.short_description|truncatewords:12 }}
+            {% else %}
+                Healthy millet-based nutrition for kids
+            {% endif %}
+        </p>
+
+        <!-- Price -->
+        <div class="price-wrapper mb-2">
+            <span class="selling-price">{{ product.selling_price|currency_inr }}</span>
+            {% if product.mrp > product.selling_price %}
+                <span class="mrp-price">{{ product.mrp|currency_inr }}</span>
+            {% endif %}
+        </div>
+
+        <!-- USP badges -->
+        <div class="d-flex gap-1 mb-3 flex-wrap">
+            <span class="badge bg-light text-dark border border-dark border-opacity-20" style="font-size: 0.7rem; padding: 0.3rem 0.5rem;">No Maida</span>
+            <span class="badge bg-light text-dark border border-dark border-opacity-20" style="font-size: 0.7rem; padding: 0.3rem 0.5rem;">Natural</span>
+        </div>
+
+        <!-- Add to Cart -->
+        <button class="btn btn-sf-primary btn-add-to-cart w-100 mt-auto"
+                style="font-size:0.9rem; padding:0.6rem 1rem; font-weight: 700;">
+            <i class="bi bi-cart-plus me-1"></i> Add to Cart
+        </button>
+    </div>
+</div>

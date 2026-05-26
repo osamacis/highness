@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} | Highness Recipes{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="page-banner text-center">
+    <div class="container">
+        <div class="mb-4">
+            <span class="badge rounded-pill" style="background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); color: white; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.5px; padding: 0.5rem 1rem;">RECIPES</span>
+        </div>
+        <h1 class="page-banner-title" style="font-family: var(--font-heading);">{{ page_title }}</h1>
+        <p class="lead text-muted max-width-600 mx-auto mt-3">
+            Wholesome, delicious, and easy-to-make recipes that will make your kids ask for more!
+        </p>
+    </div>
+</section>
+
+<!-- Filters & Recipes -->
+<section class="py-5 bg-white">
+    <div class="container">
+        
+        <!-- Filter Toolbar -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-5 p-4 rounded-3" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%); border: 1px solid #E2E8F0;">
+            <!-- Age -->
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <span class="fw-bold small text-muted">Age:</span>
+                <a href="{% url 'blog:recipe_list' %}{% if active_difficulty %}?difficulty={{ active_difficulty }}{% endif %}" class="btn btn-sm rounded-pill px-3 {% if not active_age %}bg-primary text-white{% else %}bg-light text-dark{% endif %}">
+                    All
+                </a>
+                {% for age in age_groups %}
+                    <a href="{% url 'blog:recipe_list_by_age' age.slug %}{% if active_difficulty %}?difficulty={{ active_difficulty }}{% endif %}" class="btn btn-sm rounded-pill px-3 {% if active_age == age.slug %}bg-primary text-white{% else %}bg-light text-dark{% endif %}">
+                        {{ age.name }}
+                    </a>
+                {% endfor %}
+            </div>
+
+            <!-- Difficulty -->
+            <div class="d-flex align-items-center gap-2">
+                <label for="diffSelect" class="text-nowrap fw-bold small text-muted">Difficulty:</label>
+                <select id="diffSelect" class="form-select form-select-sm rounded-pill" style="min-width: 140px; border: 2px solid #E2E8F0;" onchange="location = this.value;">
+                    <option value="?{% if active_age %}age={{ active_age }}&{% endif %}difficulty=all" {% if not active_difficulty %}selected{% endif %}>All</option>
+                    {% for val, label in difficulties %}
+                        <option value="?{% if active_age %}age={{ active_age }}&{% endif %}difficulty={{ val }}" {% if active_difficulty == val %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <!-- Recipe Grid -->
+        <div class="row g-4">
+            {% for recipe in recipes %}
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card border-0 rounded-3 h-100 overflow-hidden shadow-sm d-flex flex-column">
+                        <div class="position-relative" style="height: 200px; overflow: hidden;">
+                            {% if recipe.featured_image %}
+                                <img src="{{ recipe.featured_image.url }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ recipe.title }}">
+                            {% else %}
+                                <img src="https://placehold.co/400x250/6366F1/FFFFFF?text={{ recipe.title|urlencode }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ recipe.title }}">
+                            {% endif %}
+                            
+                            <span class="position-absolute top-2 start-2 badge {% if recipe.difficulty == 'easy' %}bg-success{% elif recipe.difficulty == 'medium' %}bg-warning text-dark{% else %}bg-danger{% endif %} text-capitalize" style="padding: 0.4rem 0.8rem;">
+                                {{ recipe.difficulty }}
+                            </span>
+                        </div>
+
+                        <div class="card-body p-3.5 bg-white d-flex flex-column flex-grow-1">
+                            <span class="text-muted small fw-bold text-uppercase d-block mb-1">
+                                <i class="bi bi-clock" style="color: #6366F1; margin-right: 0.5rem;"></i> {{ recipe.total_time }} mins
+                            </span>
+                            <h4 class="card-title text-dark mb-3" style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700;">
+                                <a href="{% url 'blog:recipe_detail' recipe.slug %}" class="text-decoration-none">
+                                    {{ recipe.title }}
+                                </a>
+                            </h4>
+                            
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                {% if recipe.age_group %}
+                                    <span class="badge bg-light text-dark border border-light-gray small" style="border-color: #E2E8F0;">{{ recipe.age_group.name }}</span>
+                                {% endif %}
+                                <a href="{% url 'blog:recipe_detail' recipe.slug %}" class="text-primary fw-bold text-decoration-none small">
+                                    View <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 py-5 text-center">
+                    <i class="bi bi-egg-fried text-muted" style="font-size: 3rem;"></i>
+                    <h3 class="mt-3 text-dark" style="font-family: var(--font-heading); font-weight: 700;">No Recipes Found</h3>
+                    <p class="text-muted">Stay tuned for more recipes!</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+            <nav class="mt-5 d-flex justify-content-center">
+                <ul class="pagination align-items-center gap-2">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if active_age %}&age={{ active_age }}{% endif %}{% if active_difficulty %}&difficulty={{ active_difficulty }}{% endif %}">
+                                <i class="bi bi-chevron-left"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}{% if active_age %}&age={{ active_age }}{% endif %}{% if active_difficulty %}&difficulty={{ active_difficulty }}{% endif %}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if active_age %}&age={{ active_age }}{% endif %}{% if active_difficulty %}&difficulty={{ active_difficulty }}{% endif %}">
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+        
+    </div>
+</section>
+
+{% endblock %}

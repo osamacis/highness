@@ -1,0 +1,21 @@
+<style>
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+.announcement-bar .marquee-track {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+}
+</style>
+<div class="announcement-bar">
+    <div class="overflow-hidden">
+        <span class="marquee-track">
+            ✨ FRESH & HEALTHY NUTRITION FOR YOUR KIDS &nbsp;&nbsp;•&nbsp;&nbsp;
+            FREE SHIPPING ON ORDERS ABOVE ₹499 &nbsp;&nbsp;•&nbsp;&nbsp;
+            100% NATURAL INGREDIENTS &nbsp;&nbsp;•&nbsp;&nbsp;
+            USE CODE <strong>WELCOME10</strong> FOR 10% OFF ✨
+        </span>
+    </div>
+</div>
